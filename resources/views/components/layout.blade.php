@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BUKU INDUK</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
+    <script src="//unpkg.com/alpinejs" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <!-- Font Awesome 6 CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -20,7 +22,8 @@
       }
     </script>
 </head>
-<body>
+<body class="dark:bg-gray-900">
+    <x-preloader></x-preloader>
     <x-navbar></x-navbar>
     <x-sidebar></x-sidebar>
       <div class="p-4 sm:ml-64">

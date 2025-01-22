@@ -1,7 +1,7 @@
 {{-- header --}}
 <div class="grid grid-cols-3 mb-4">
     <div class="flex items-center left-center rounded">
-        <p class="text-3xl text-gray-900 dark:text-gray-400">{{ $slot }}</p>
+        <p class="text-3xl text-gray-900 dark:text-white">{{ $slot }}</p>
     </div>
     <div class="flex items-center justify-center rounded">
     </div>
