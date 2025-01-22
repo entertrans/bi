@@ -4,6 +4,7 @@ use App\Models\dataSiswa;
 use Illuminate\Support\Arr;
 use Termwind\Components\Dd;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', function () {
@@ -21,13 +22,19 @@ Route::get('/siswa', function () {
 
     //  // Menggunakan dd() untuk dump dan die data
     //  dd($dataSiswa['0']['siswa_nama']);
-    $dataSiswa = dataSiswa::where(function ($query) {
+   $dataSiswa = dataSiswa::with(['agama', 'kelas']) // Eager loading relasi
+    ->where(function ($query) {
         $query->where('soft_deleted', 0)
-            ->where('siswa_kelas_id', '<', 16);
-    })->get();
+              ->where('siswa_kelas_id', '<', 16);
+    })
+    ->get();
+    // $siswa = dataSiswa::with(['agama', 'kelas'])->get();
+    // dd( $dataSiswa[0]['agama']['agama_nama']);
     return view('admin/siswa', ['title' => 'Data Siswa', 'dt_siswa' => $dataSiswa]);
 });
 
-Route::get('/admin/edit_pd/{siswa:siswa_nis}', function (dataSiswa $siswa) {
-    return view('admin/editsiswa', ['title' => 'Edit Peserta', 'edit_pd' => $siswa]);
-});
+Route::get('/admin/edit_pd/{siswa:siswa_nis}', [AdminController::class, 'editSiswa']);
+
+// Route::get('/admin/edit_pd/{siswa:siswa_nis}', function (dataSiswa $siswa) {
+//     return view('admin/editsiswa', ['title' => 'Edit Peserta', 'edit_pd' => $siswa]);
+// });

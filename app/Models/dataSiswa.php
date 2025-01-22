@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\dataAgama;
+use App\Models\namaKelas;
 use Illuminate\Database\Eloquent\Model;
 
 class DataSiswa extends Model
@@ -11,4 +13,15 @@ class DataSiswa extends Model
 
     // Jika ada atribut lain, misalnya:
     // protected $fillable = ['nama', 'alamat']; 
+    // Relasi ke tbl_agama (One-to-Many)
+    public function agama()
+    {
+        return $this->belongsTo(dataAgama::class, 'siswa_agama_id', 'agama_id'); 
+    }
+
+    // Relasi ke tbl_kelas (One-to-Many)
+    public function kelas()
+    {
+        return $this->belongsTo(namaKelas::class, 'siswa_kelas_id', 'kelas_id');
+    }
 }

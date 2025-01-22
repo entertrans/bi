@@ -76,7 +76,8 @@
                      {{$siswa['siswa_nis']}}
                   </td>
                   <td >
-                     {{Str::substr($siswa['kelas'], 6)}}
+                     {{Str::substr($siswa['kelas']['kelas_nama'], 6)}}
+                    {{-- {{$siswa['kelas']['kelas_nama']}} --}}
                   </td>
                   <td >
                         <div class="flex items-center">

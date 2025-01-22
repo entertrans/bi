@@ -3,6 +3,8 @@
 /public/build
 /public/hot
 /public/storage
+# Ignore the filesiswa folder inside public
+/public/filesiswa
 /storage/*.key
 /storage/pail
 /vendor
@@ -21,3 +23,4 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
