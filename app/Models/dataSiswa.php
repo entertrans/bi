@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\dataAgama;
 use App\Models\namaKelas;
+use App\Models\dataSatelit;
 use Illuminate\Database\Eloquent\Model;
 
 class DataSiswa extends Model
@@ -23,5 +24,11 @@ class DataSiswa extends Model
     public function kelas()
     {
         return $this->belongsTo(namaKelas::class, 'siswa_kelas_id', 'kelas_id');
+    }
+
+    // Relasi ke tbl_satelit (One-to-Many)
+    public function satelit1()
+    {
+        return $this->belongsTo(dataSatelit::class, 'satelit', 'satelit_id');
     }
 }

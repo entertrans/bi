@@ -10,8 +10,11 @@
                 <div class="border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
                     <!-- Container with flexbox to center the image -->
                     <div class="flex items-center justify-center">
-                        <img class="rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" src="/images/users/bonnie-green-2x.png"
-                            alt="Jese picture">
+                        <img class="rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" 
+                        src="{{ 'https://ui-avatars.com/api/?name=' . urlencode($edit_pd['siswa_nama']) . '&size=100&background=random' }}" 
+                        alt="{{$edit_pd['siswa_nama']}}">   
+                        {{-- <img class="rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" src="/images/users/bonnie-green-2x.png"
+                            alt="Jese picture"> --}}
                     </div>
                     <div>
                         <div class="text-center my-4 text-sm text-gray-500 dark:text-gray-400">

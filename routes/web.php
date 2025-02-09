@@ -4,9 +4,15 @@ use App\Models\dataSiswa;
 use Illuminate\Support\Arr;
 use Termwind\Components\Dd;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\siswaControler;
+use App\Http\Controllers\eraportControler;
+use App\Http\Controllers\kesiswaanControler;
+use App\Http\Controllers\ApiServerController;
 
 
+
+
+//route admin
 Route::get('/', function () {
     return view('admin/dashboard', ['title' => 'Dashboard']);
 });
@@ -16,24 +22,41 @@ Route::get('/ujicoba', function () {
 Route::get('/keuangan', function () {
     return view('admin/keuangan');
 });
-Route::get('/siswa', function () {
-    //  // Mengambil semua data dari tabel tbl_siswa
-    //  $dataSiswa = DataSiswa::all();
 
-    //  // Menggunakan dd() untuk dump dan die data
-    //  dd($dataSiswa['0']['siswa_nama']);
-   $dataSiswa = dataSiswa::with(['agama', 'kelas']) // Eager loading relasi
-    ->where(function ($query) {
-        $query->where('soft_deleted', 0)
-              ->where('siswa_kelas_id', '<', 16);
-    })
-    ->get();
-    // $siswa = dataSiswa::with(['agama', 'kelas'])->get();
-    // dd( $dataSiswa[0]['agama']['agama_nama']);
-    return view('admin/siswa', ['title' => 'Data Siswa', 'dt_siswa' => $dataSiswa]);
-});
 
-Route::get('/admin/edit_pd/{siswa:siswa_nis}', [AdminController::class, 'editSiswa']);
+//menu kesiswaan
+Route::get('/siswa', [kesiswaanControler::class, 'Siswa']);
+
+Route::get('/siswaKeluar', [kesiswaanControler::class, 'siswaKeluar']);
+
+Route::get('/siswaAlumni', [kesiswaanControler::class, 'siswaAlumni']);
+
+Route::get('/admin/edit_pd/{siswa:siswa_nis}', [kesiswaanControler::class, 'editSiswa']);
+
+//menu E-Raport
+
+Route::get('/tahunAjaran', [eraportControler::class, 'Ta']);
+// Route::get('/admin/pilihSiswa/{id:id_ta}', [eraportControler::class, 'pilihSiswa']);
+
+//ajax datatable route
+
+// ROUTE untuk menampilkan halaman pilih siswa
+Route::get('/admin/pilihSiswa/{id:id_ta}', [eraportControler::class, 'pilihSiswa'])->name('pilih.siswa');
+
+// ROUTE API untuk ambil data siswa (gunakan DataTables server-side)
+// Route::get('/admin/api/get_siswa', [ApiServerController::class, 'getSiswa'])->name('api.get.siswa');
+Route::get('/api/siswa', [ApiServerController::class, 'getSiswaData'])->name('api.get.siswa');
+
+
+
+
+
+// ROUTE untuk halaman edit siswa
+Route::get('/admin/edit_pd/{siswa:siswa_nis}', [eraportControler::class, 'editSiswa']);
+
+
+
+//end route admin
 
 // Route::get('/admin/edit_pd/{siswa:siswa_nis}', function (dataSiswa $siswa) {
 //     return view('admin/editsiswa', ['title' => 'Edit Peserta', 'edit_pd' => $siswa]);

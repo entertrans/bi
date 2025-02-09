@@ -13,14 +13,14 @@
                    <x-icon name="dropdown"></x-icon>
                </button>
                {{-- kondisi awal hidden class "hidden" --}}
-               <ul id="kesiswaan-dropdown" class="{{ request()->is('siswa') || request()->is('admin/edit_pd/*') ? '' : 'hidden' }} py-2 space-y-2">
+               <ul id="kesiswaan-dropdown" class="{{ request()->is('siswa') ||request()->is('siswaKeluar') ||request()->is('siswaAlumni') || request()->is('admin/edit_pd/*') ? '' : 'hidden' }} py-2 space-y-2">
                    <li class="{{ request()->is('siswa') || request()->is('admin/edit_pd/*') ? 'bg-gray-100 rounded-lg dark:bg-gray-700' : '' }}">
                        <x-side-link type="sub" url="/siswa" text="Siswa Aktif" />
                    </li>
-                   <li>
+                   <li class="{{ request()->is('siswaKeluar') ? 'bg-gray-100 rounded-lg dark:bg-gray-700' : '' }}">
                        <x-side-link type="sub" url="/siswaKeluar" text="Siswa Keluar" />
                    </li>
-                   <li>
+                   <li class="{{ request()->is('siswaAlumni') ? 'bg-gray-100 rounded-lg dark:bg-gray-700' : '' }}">
                     <x-side-link type="sub" url="/siswaAlumni" text="Siswa Alumni" />
                 </li>
                </ul>
@@ -32,12 +32,12 @@
                 <x-icon name="dropdown"></x-icon>
             </button>
             {{-- kondisi awal hidden class "hidden" --}}
-            <ul id="raport-dropdown" class="{{ request()->is('mapel') ? '' : 'hidden' }} py-2 space-y-2">
+            <ul id="raport-dropdown" class="{{ request()->is('tahunAjaran') ? '' : 'hidden' }} py-2 space-y-2">
                 <li class="{{ request()->is('mapel') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
-                    <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Mapel</a>
+                    <x-side-link type="sub" url="/siswa" text="Mapel" />
                 </li>
-                <li class="{{ request()->is('nilai') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
-                    <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Nilai Rapot</a>
+                <li class="{{ request()->is('tahunAjaran') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
+                    <x-side-link type="sub" url="/tahunAjaran" text="Nilai Raport" />
                 </li>
             </ul>
         </li>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\dataSiswa;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class kesiswaanControler extends Controller
 {
     public function Siswa()
     {
