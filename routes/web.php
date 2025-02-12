@@ -34,25 +34,22 @@ Route::get('/siswaAlumni', [kesiswaanControler::class, 'siswaAlumni']);
 Route::get('/admin/edit_pd/{siswa:siswa_nis}', [kesiswaanControler::class, 'editSiswa']);
 
 //menu E-Raport
-
 Route::get('/tahunAjaran', [eraportControler::class, 'Ta']);
+Route::get('/admin/pilihSiswa/{id:id_ta}', [eraportControler::class, 'pilihSiswa'])->name('pilih.siswa');
+Route::get('/admin/pilihSiswa/{id:id_ta}/{siswa:id_siswa}', [eraportControler::class, 'isiRaport'])->name('raport.siswa');
+
+
 // Route::get('/admin/pilihSiswa/{id:id_ta}', [eraportControler::class, 'pilihSiswa']);
 
 //ajax datatable route
-
-// ROUTE untuk menampilkan halaman pilih siswa
-Route::get('/admin/pilihSiswa/{id:id_ta}', [eraportControler::class, 'pilihSiswa'])->name('pilih.siswa');
 
 // ROUTE API untuk ambil data siswa (gunakan DataTables server-side)
 // Route::get('/admin/api/get_siswa', [ApiServerController::class, 'getSiswa'])->name('api.get.siswa');
 Route::get('/api/siswa', [ApiServerController::class, 'getSiswaData'])->name('api.get.siswa');
 
 
-
-
-
 // ROUTE untuk halaman edit siswa
-Route::get('/admin/edit_pd/{siswa:siswa_nis}', [eraportControler::class, 'editSiswa']);
+// Route::get('/admin/edit_pd/{siswa:siswa_nis}', [eraportControler::class, 'editSiswa']);
 
 
 

@@ -15,7 +15,7 @@ class ApiServerController extends Controller
             $status = $request->status;
 
             // Query dasar dengan eager loading
-            $data = dataSiswa::with('satelit1');
+            $data = dataSiswa::with(['satelit1', 'kelas','agama']);
 
             // Terapkan kondisi berdasarkan status yang dipilih
             if ($status === 'aktif') {
@@ -57,8 +57,13 @@ class ApiServerController extends Controller
                                 ' . $satelitNama . '
                             </div>';
                 })
+                //tambah inisialisasi kelas
+                ->addColumn('kelasNama', function ($row) {
+                    return $row->kelas ? preg_replace('/^Kelas\s*/', '', $row->kelas->kelas_nama) : '-';
+                })
+                
                 ->addColumn('action', function ($row) use ($request) {
-                    return view('components.action-buttons', ['row' => $row, 'page' => $request->page_type])->render();
+                    return view('components.action-buttons', ['row' => $row, 'page' => $request->page_type, 'id_ta' => $request->idTa])->render();
                 })
                 ->rawColumns(['nama_with_photo', 'status_with_satelit', 'action'])
                 ->make(true);

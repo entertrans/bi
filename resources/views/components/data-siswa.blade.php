@@ -26,7 +26,9 @@
                 data: function(d) {
                     d.kelas_id = $('#kelas').val();
                     d.page_type = '{{ $page }}';
+                    d.idTa = '{{ $slot }}';
                     d.status = '{{ $status }}'; // Tambahkan status ke request AJAX
+                    console.log("Data yang dikirim:", d); // ✅ Console log data request
                 }
             },
             columns: [

@@ -32,11 +32,11 @@
                 <x-icon name="dropdown"></x-icon>
             </button>
             {{-- kondisi awal hidden class "hidden" --}}
-            <ul id="raport-dropdown" class="{{ request()->is('tahunAjaran') ? '' : 'hidden' }} py-2 space-y-2">
+            <ul id="raport-dropdown" class="{{ request()->is('tahunAjaran') || request()->is('admin/pilihSiswa/*') ? '' : 'hidden' }} py-2 space-y-2">
                 <li class="{{ request()->is('mapel') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
                     <x-side-link type="sub" url="/siswa" text="Mapel" />
                 </li>
-                <li class="{{ request()->is('tahunAjaran') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
+                <li class="{{ request()->is('tahunAjaran') || request()->is('admin/pilihSiswa/*') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
                     <x-side-link type="sub" url="/tahunAjaran" text="Nilai Raport" />
                 </li>
             </ul>

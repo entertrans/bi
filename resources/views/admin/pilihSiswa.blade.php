@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
 
-    <div class="rounded bg-gray-50 dark:bg-gray-800 p-5">
+    <div class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
 
         <div class="flex items-center mb-4">
             <label for="kelas" class="block mr-3 text-sm font-medium text-gray-900 dark:text-white">Pilih Kelas</label>
@@ -13,18 +13,17 @@
                 @endforeach
             </select>
         </div>
-
-
+        {{-- <p>test {{ $id_ta }}</p> --}}
+        
         {{-- jika menggunakan  withoutPhoto datanya siswa_nama , jika dengan foto withPhoto datanya nama_with_photo --}}
 
         <x-data-siswa status="aktif" page="tugas" :columns="[
             ['label' => 'Nama dengan Foto', 'data' => 'nama_with_photo'],
             ['label' => 'NIS', 'data' => 'siswa_nis'],
-            ['label' => 'Email', 'data' => 'siswa_email'],
+            ['label' => 'Kelas', 'data' => 'kelasNama'],
             ['label' => 'Status & Satelit', 'data' => 'status_with_satelit'],
             ['label' => 'Aksi', 'data' => 'action'],
-        ]" />
-
+        ]">{{ $id_ta }}</x-data-siswa>
 
     </div>
 
