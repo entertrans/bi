@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\dataPelajaran;
+use App\Models\DataPelajaran;
 use Illuminate\Database\Eloquent\Model;
 
-class dataMapel extends Model
+class DataMapel extends Model
 {
     protected $table = 'tbl_mapel'; // Nama tabel
     protected $primaryKey = 'kd_mapel'; // Primary key
@@ -13,6 +13,6 @@ class dataMapel extends Model
 
     public function pelajaran()
     {
-        return $this->hasMany(dataPelajaran::class, 'kd_mapel', 'kd_mapel');
+        return $this->hasMany(DataPelajaran::class, 'kd_mapel', 'kd_mapel');
     }
 }

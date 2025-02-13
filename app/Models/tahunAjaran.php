@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class tahunAjaran extends Model
+class TahunAjaran extends Model
 {
     //load tabel tahun ajaran
     protected $table = 'tbl_thn_ajaran';

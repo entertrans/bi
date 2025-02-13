@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\dataSiswa;
+use App\Models\DataSiswa;
 use Yajra\DataTables\Facades\DataTables;
 
 class ApiServerController extends Controller
@@ -15,7 +15,7 @@ class ApiServerController extends Controller
             $status = $request->status;
 
             // Query dasar dengan eager loading
-            $data = dataSiswa::with(['satelit1', 'kelas','agama']);
+            $data = DataSiswa::with(['satelit1', 'kelas','agama']);
 
             // Terapkan kondisi berdasarkan status yang dipilih
             if ($status === 'aktif') {

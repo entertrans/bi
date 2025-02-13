@@ -55,44 +55,35 @@
         <!-- Bagian Kiri -->
         <div class="space-y-6">
             <!-- Mata Pelajaran -->
-            <div
-                class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
+            <div class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
             dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h2 class="text-lg font-semibold mb-3 text-white">Mata Pelajaran</h2>
                 @foreach ($mapel as $mpl)
-                    @php
-                        $mapelNama = $mpl['mapel']['nm_mapel'];
-                        $nilai = $data_nilai['nilai'][$mapelNama] ?? ''; // Ambil nilai jika ada
-                    @endphp
                     <div class="flex justify-between items-center mb-3">
-                        <label for="nilai_{{ $mapelNama }}" class="w-2/3 text-sm font-medium text-white">
-                            {{ $mapelNama }}
+                        <label for="nilai_{{ $mpl['mapel']['nm_mapel'] }}" class="w-2/3 text-sm font-medium text-white">
+                            {{ $mpl['mapel']['nm_mapel'] }}
                         </label>
-                        <input type="number" name="nilai[{{ $mapelNama }}]"
+                        <input type="number" name="nilai[{{ $mpl['mapel']['nm_mapel'] }}]"
                             class="w-1/3 px-2 py-1 border border-gray-300 rounded-md text-gray-900 focus:ring-blue-500 focus:border-blue-500 text-center"
-                            min="0" max="100" step="1" value="{{ $nilai }}" required />
+                            min="0" max="100" step="1" required />
                     </div>
                 @endforeach
-
             </div>
 
             <!-- Catatan Siswa -->
-            <div
-                class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
+            <div class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
             dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h2 class="text-lg font-semibold mb-2 text-white">Catatan Siswa</h2>
                 <textarea name="catatan_siswa"
                     class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                    rows="3" placeholder="Tambahkan catatan...">{{ $data_nilai['catatan_siswa'] ?? '' }}</textarea>
-
+                    rows="3" placeholder="Tambahkan catatan..."></textarea>
             </div>
         </div>
 
         <!-- Bagian Kanan -->
         <div class="space-y-6">
             <!-- Catatan Penting Penilaian -->
-            <div
-                class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
+            <div class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
             dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h2 class="text-lg font-semibold mb-2 text-white">Catatan Penting Penilaian</h2>
                 @foreach (['Budi Pekerti / Sikap', 'Partisipasi Kelas / Kegiatan', 'Penyelesaian Tugas'] as $field)
@@ -100,67 +91,65 @@
                         <label class="w-2/3 text-sm font-medium text-white">{{ $field }}</label>
                         <input type="text" name="catatan[{{ Str::slug($field) }}]"
                             class="w-1/3 px-2 py-1 border border-gray-300 rounded-md text-gray-900 focus:ring-blue-500 focus:border-blue-500 text-center"
-                            value="{{ $data_nilai['catatan'][Str::slug($field)] ?? '' }}" />
+                            required />
                     </div>
                 @endforeach
             </div>
 
             <!-- Pengembangan Diri -->
-            <div
-                class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
+            <div class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
             dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h2 class="text-lg font-semibold mb-2 text-white">Kegiatan Pengembangan Diri</h2>
                 @for ($i = 1; $i <= 3; $i++)
                     <div class="flex justify-between items-center mb-3">
                         <input type="text" name="pengembangan[{{ $i }}][kegiatan]"
-                            placeholder="Ekstrakurikuler {{ $i }}"
+                            placeholder="Ekstrakurikular {{ $i }}"
                             class="w-1/2 px-2 py-1 border border-gray-300 rounded-md text-gray-900 focus:ring-blue-500 focus:border-blue-500 text-center"
-                            value="{{ $data_nilai['pengembangan'][$i]['kegiatan'] ?? '' }}" />
-
+                             />
                         <input type="text" name="pengembangan[{{ $i }}][nilai]" placeholder="Nilai"
                             class="w-1/3 px-2 py-1 border border-gray-300 rounded-md text-gray-900 focus:ring-blue-500 focus:border-blue-500 text-center"
-                            value="{{ $data_nilai['pengembangan'][$i]['nilai'] ?? '' }}" />
+                             />
                     </div>
                 @endfor
-
             </div>
 
             <!-- Absensi -->
-            <div
-                class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
+            <div class="block p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 
             dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h2 class="text-lg font-semibold mb-2 text-white">Absensi</h2>
-                @foreach (['sakit', 'izin', 'tanpa-keterangan'] as $absen)
-                    @php
-                        $absenValue = $data_nilai['absensi'][$absen] ?? '';
-                    @endphp
+                @foreach (['Sakit', 'Izin', 'Tanpa Keterangan'] as $absen)
                     <div class="flex justify-between items-center mb-3">
-                        <label
-                            class="w-2/3 text-sm font-medium text-white">{{ ucfirst(str_replace('-', ' ', $absen)) }}</label>
-                        <input type="number" name="absensi[{{ $absen }}]"
+                        <label class="w-2/3 text-sm font-medium text-white">{{ $absen }}</label>
+                        <input type="number" name="absensi[{{ Str::slug($absen) }}]"
                             class="w-1/3 px-2 py-1 border border-gray-300 rounded-md text-gray-900 focus:ring-blue-500 focus:border-blue-500 text-center"
-                            value="{{ $absenValue }}" required />
+                            required />
                     </div>
                 @endforeach
-
             </div>
             <!-- Tombol Submit -->
             <div class="col-span-2 flex justify-end mt-6">
-                <div class="col-span-2 flex justify-end mt-6">
-                    <a href="{{ route('pilih.siswa', ['id' => $id_ta]) }}"
-                        class="bg-green-500 text-white text-base mr-5 px-5 py-3 rounded-lg hover:bg-green-600 focus:ring-2 focus:ring-green-300">
-                        &lt; Kembali
-                    </a>                    
-                    <button type="submit"
-                        class="bg-blue-500 text-white text-base px-5 py-3 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-300">
-                        Simpan Raport
-                    </button>
-                </div>
-
+                <button type="submit"
+                    class="bg-blue-500 text-white text-base px-5 py-3 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-300">
+                    Simpan Raport
+                </button>
             </div>
         </div>
     </form>
 
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            title: 'Berhasil!',
+            text: '{{ session("success") }}',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true,
+            position: 'top-end'
+        });
+    </script>
+    @endif
+    
 
     {{-- </div> --}}
 

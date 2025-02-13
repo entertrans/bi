@@ -3,10 +3,12 @@
 use App\Models\dataSiswa;
 use Illuminate\Support\Arr;
 use Termwind\Components\Dd;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\siswaControler;
 use App\Http\Controllers\eraportControler;
 use App\Http\Controllers\kesiswaanControler;
+use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\ApiServerController;
 
 
@@ -19,9 +21,9 @@ Route::get('/', function () {
 Route::get('/ujicoba', function () {
     return view('ujicoba');
 });
-Route::get('/keuangan', function () {
-    return view('admin/keuangan');
-});
+// Route::get('/keuangan', function () {
+//     return view('admin/keuangan');
+// });
 
 
 //menu kesiswaan
@@ -34,11 +36,16 @@ Route::get('/siswaAlumni', [kesiswaanControler::class, 'siswaAlumni']);
 Route::get('/admin/edit_pd/{siswa:siswa_nis}', [kesiswaanControler::class, 'editSiswa']);
 
 //menu E-Raport
-Route::get('/tahunAjaran', [eraportControler::class, 'Ta']);
-Route::get('/admin/pilihSiswa/{id:id_ta}', [eraportControler::class, 'pilihSiswa'])->name('pilih.siswa');
-Route::get('/admin/pilihSiswa/{id:id_ta}/{siswa:id_siswa}', [eraportControler::class, 'isiRaport'])->name('raport.siswa');
+Route::get('/tahunAjaran', [EraportControler::class, 'Ta']);
+Route::get('/admin/pilihSiswa/{id:id_ta}', [EraportControler::class, 'pilihSiswa'])->name('pilih.siswa');
+Route::get('/admin/pilihSiswa/{id:id_ta}/{siswa:id_siswa}', [EraportControler::class, 'isiRaport'])->name('raport.siswa');
+Route::post('/simpan-raport', [EraportControler::class, 'simpanRaport'])->name('simpan.raport');
+// Route::post('/simpan-raport', function (Request $request) {
+//     dd($request->all()); 
+// });
 
-
+//menu Keuangan
+Route::get('/AdminKeuangan', [KeuanganController::class, 'pilihSiswa'])->name('keuangan.siswa');
 // Route::get('/admin/pilihSiswa/{id:id_ta}', [eraportControler::class, 'pilihSiswa']);
 
 //ajax datatable route

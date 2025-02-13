@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\dataMapel;
+use App\Models\DataMapel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class dataPelajaran extends Model
+class DataPelajaran extends Model
 {
     use HasFactory;
 
@@ -16,6 +16,6 @@ class dataPelajaran extends Model
 
     public function mapel()
     {
-        return $this->belongsTo(dataMapel::class, 'kd_mapel', 'kd_mapel');
+        return $this->belongsTo(DataMapel::class, 'kd_mapel', 'kd_mapel');
     }
 }

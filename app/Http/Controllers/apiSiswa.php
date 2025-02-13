@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dataSiswa;
+use App\Models\DataSiswa;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -11,7 +11,7 @@ class apiSiswa extends Controller
     public function getSiswa(Request $request)
     {
         if ($request->ajax()) {
-            $query = dataSiswa::with(['agama', 'kelas', 'satelit1'])
+            $query = DataSiswa::with(['agama', 'kelas', 'satelit1'])
                 ->where('soft_deleted', 0);
 
             // Filter berdasarkan kelas
