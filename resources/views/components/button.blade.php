@@ -26,3 +26,8 @@
 <button type="button" class="{{ $buttonClass }} font-medium rounded-lg text-center me-2 mb-2">
     <a href="{{ $url }}">{{ $text }}</a>
 </button>
+
+{{--
+cara pakai 
+<x-button color="gray" type="large" url="#" text="Proceed to Payment" /> 
+--}}

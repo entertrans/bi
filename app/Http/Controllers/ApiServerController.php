@@ -35,6 +35,7 @@ class ApiServerController extends Controller
             $data = $data->get();
 
             return DataTables::of($data)
+            //nama email dengan photo
                 ->addColumn('nama_with_photo', function ($row) {
                     $photo = $row->siswa_photo
                         ? 'https://ui-avatars.com/api/?name=' . urlencode($row->siswa_nama) . '&size=100&background=random'
@@ -48,6 +49,21 @@ class ApiServerController extends Controller
                                 </div>
                             </div>';
                 })
+                // nama photo dan nis
+                ->addColumn('photo_with_nis', function ($row) {
+                    $photo = $row->siswa_photo
+                        ? 'https://ui-avatars.com/api/?name=' . urlencode($row->siswa_nama) . '&size=100&background=random'
+                        : 'https://ui-avatars.com/api/?name=' . urlencode($row->siswa_nama) . '&size=100&background=random';
+
+                    return '<div class="flex items-center">
+                                <img src="' . $photo . '" class="w-10 h-10 rounded-full">
+                                <div class="ps-3">
+                                    <div class="text-base font-semibold">' . $row->siswa_nama . '</div>
+                                    <div class="font-normal text-gray-500">' . $row->siswa_nis . '</div>
+                                </div>
+                            </div>';
+                })
+                //status dengan satelit
                 ->addColumn('status_with_satelit', function ($row) {
                     $statusColor = $row->soft_deleted == 0 ? 'bg-green-500' : 'bg-red-500';
                     $satelitNama = $row->satelit1 ? $row->satelit1->satelit_nama : '-';
@@ -65,7 +81,7 @@ class ApiServerController extends Controller
                 ->addColumn('action', function ($row) use ($request) {
                     return view('components.action-buttons', ['row' => $row, 'page' => $request->page_type, 'id_ta' => $request->idTa])->render();
                 })
-                ->rawColumns(['nama_with_photo', 'status_with_satelit', 'action'])
+                ->rawColumns(['nama_with_photo', 'status_with_satelit', 'photo_with_nis','action'])
                 ->make(true);
         }
     }

@@ -1,5 +1,5 @@
 @props(['status' => 'aktif', 'page' => '', 'columns' => []])
-<div class="relative shadow-md sm:rounded-lg">
+<div class="relative shadow-md sm:rounded-lg ">
 <div id="siswa-table">
     <table id="datatable-siswa"
         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 pt-5">
@@ -33,7 +33,7 @@
             },
             columns: [
                 @foreach ($columns as $column)
-                    { data: '{{ $column["data"] }}', name: '{{ $column["data"] }}', className: "px-6 py-4" },
+                    { data: '{{ $column["data"] }}', name: '{{ $column["data"] }}', className: "px-6 py-4 " },
                 @endforeach
             ]
         });

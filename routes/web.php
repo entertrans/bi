@@ -45,7 +45,10 @@ Route::post('/simpan-raport', [EraportControler::class, 'simpanRaport'])->name('
 // });
 
 //menu Keuangan
-Route::get('/AdminKeuangan', [KeuanganController::class, 'pilihSiswa'])->name('keuangan.siswa');
+Route::get('/admin/Keuangan', [KeuanganController::class, 'pilihSiswa'])->name('keuangan.siswa');
+Route::get('/admin/JenisTagihan', [KeuanganController::class, 'JenisTagihan'])->name('jenis.tagihan');
+Route::post('/update-tagihan/{id}', [KeuanganController::class, 'update'])->name('update-tagihan');
+Route::post('/tagihan/simpan', [KeuanganController::class, 'simpan'])->name('tagihan.simpan');
 // Route::get('/admin/pilihSiswa/{id:id_ta}', [eraportControler::class, 'pilihSiswa']);
 
 //ajax datatable route

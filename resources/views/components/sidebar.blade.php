@@ -62,13 +62,13 @@
                 </button>
                 {{-- kondisi awal hidden class "hidden" --}}
                 <ul id="keuangan-dropdown"
-                    class="{{ request()->is('tahunAjaran') || request()->is('admin/pilihSiswa/*') ? '' : 'hidden' }} py-2 space-y-2">
-                    <li class="{{ request()->is('/JenisTagihan') ? ' dark:bg-gray-700 bg-gray-100 rounded-lg ' : '' }}}">
+                    class="{{ request()->is('admin/Keuangan') || request()->is('admin/JenisTagihan') ? '' : 'hidden' }} py-2 space-y-2">
+                    <li class="{{ request()->is('admin/JenisTagihan') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
                         
                         <x-side-link type="sub" url="/admin/JenisTagihan" text="Jenis Tagihan" />
                     </li>
-                    <li class="{{ request()->is('/keuangan') ? ' dark:bg-gray-700 bg-gray-100 rounded-lg ' : '' }}}">
-                        <x-side-link type="sub" url="/admin/keuangan" text="Data Siswa" />
+                    <li class="{{ request()->is('admin/Keuangan') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
+                        <x-side-link type="sub" url="/admin/Keuangan" text="Data Siswa" />
                     </li>
                 </ul>
             </li>
