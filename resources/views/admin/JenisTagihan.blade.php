@@ -78,8 +78,8 @@
             <thead>
                 <tr>
                     <th><span class="flex items-center">Nama Tagihan</span></th>
-                    <th><span class="flex items-center">Nominal</span></th>
-                    <th><span class="flex items-center">Status</span></th>
+                    {{-- <th><span class="flex items-center">Nominal</span></th> --}}
+                    {{-- <th><span class="flex items-center">Status</span></th> --}}
                     <th><span class="flex items-center">Action</span></th>
                 </tr>
             </thead>
@@ -89,19 +89,19 @@
                         <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $item['jns_tagihan'] }}
                         </td>
-                        <td class="nominal-tagihan">{{ $item['nom_tagihan'] }}</td>
-                        <td>
+                        {{-- <td class="nominal-tagihan">{{ $item['nom_tagihan'] }}</td> --}}
+                        {{-- <td>
                             <div class="flex items-center">
                                 <span
                                     class=" {{ $item['sts_tagihan'] == 1 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300' }} text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm ">{{ $item['sts_tagihan'] == 1 ? 'Active' : 'Inactive' }}</span>
                             </div>
-                        </td>
+                        </td> --}}
 
                         <td>
                             <button class="edit-btn px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                                 data-id="{{ $item['id_tagihan'] }}" data-nominal="{{ $item['nom_tagihan'] }}"
                                 data-status="{{ $item['sts_tagihan'] }}" data-jns="{{ $item['jns_tagihan'] }}">
-                                Edit
+                               Tambah Siswa
                             </button>
                         </td>
 

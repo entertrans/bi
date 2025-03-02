@@ -12,8 +12,8 @@ class DataTagihan extends Model
     protected $table = 'tbl_tagihan'; // Nama tabel
     protected $primaryKey = 'id_tagihan'; // Primary key
     public $timestamps = false;
-
-    // protected $fillable = ['nom_tagihan', 'sts_tagihan'];
-    protected $fillable = ['jns_tagihan', 'nom_tagihan', 'sts_tagihan'];
+    public $incrementing = true;
+    
+    protected $fillable = ['jns_tagihan', 'nom_tagihan','status'];
 
 }

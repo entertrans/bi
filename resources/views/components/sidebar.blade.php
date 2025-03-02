@@ -62,14 +62,23 @@
                 </button>
                 {{-- kondisi awal hidden class "hidden" --}}
                 <ul id="keuangan-dropdown"
-                    class="{{ request()->is('admin/Keuangan') || request()->is('admin/JenisTagihan') ? '' : 'hidden' }} py-2 space-y-2">
-                    <li class="{{ request()->is('admin/JenisTagihan') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
-                        
+                    class="{{ request()->is('admin/Invoice')|| request()->is('admin/PembayaranSiswa')|| request()->is('invoice/tambah')|| request()->is('Admin/DetailInvoice/*')|| request()->is('admin/KategoriInvoice') ? '' : 'hidden' }} py-2 space-y-2">
+                    {{-- <li class="{{ request()->is('admin/JenisTagihan') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
                         <x-side-link type="sub" url="/admin/JenisTagihan" text="Jenis Tagihan" />
-                    </li>
-                    <li class="{{ request()->is('admin/Keuangan') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
+                    </li> --}}
+                    {{-- <li class="{{ request()->is('admin/Keuangan') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
                         <x-side-link type="sub" url="/admin/Keuangan" text="Data Siswa" />
+                    </li> --}}
+                    <li class="{{ request()->is('admin/KategoriInvoice') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
+                        <x-side-link type="sub" url="/admin/KategoriInvoice" text="Kategori Invoice" />
                     </li>
+                    <li class="{{ request()->is('admin/Invoice')|| request()->is('invoice/tambah') ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
+                        <x-side-link type="sub" url="/admin/Invoice" text="Buat Invoice" />
+                    </li>
+                    <li class="{{ request()->is('admin/PembayaranSiswa')|| request()->is('Admin/DetailInvoice/*')  ? 'bg-gray-100 rounded-lg  dark:bg-gray-700' : '' }}">
+                        <x-side-link type="sub" url="/admin/PembayaranSiswa" text="Pembayaran" />
+                    </li>
+                    
                 </ul>
             </li>
             

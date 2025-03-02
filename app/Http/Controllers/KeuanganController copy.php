@@ -42,7 +42,7 @@ class KeuanganController extends Controller
 
     public function TambahInvoice(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
 
         $siswaTerpilih = request('siswa'); // Array ["12345|John Doe", "67890|Jane Doe"]
         $dataSiswa = [];
@@ -68,56 +68,61 @@ class KeuanganController extends Controller
     }
     public function SimpanInvoice(Request $request)
     {
+        $siswaJson = $request->input('data_siswa');
+        $siswaData = json_decode($siswaJson, true) ?? []; // Pastikan tidak null
+        $kdInvoice = $this->generateKodeInvoice();
+
+        $totalTagihan = array_sum($request->tagihan ?? []);
+        $potongan = $request->potongan ?? 0;
+        $tgl_invoice = Carbon::createFromFormat('m/d/Y', $request->tanggal_invoice)->format('Y-m-d');
+        $jt_invoice = Carbon::createFromFormat('m/d/Y', $request->tanggal_jatuh_tempo)->format('Y-m-d');
+        // return redirect()->route('invoice.siswa')->with('success', 'Invoice berhasil disimpan!');
+        // return redirect()->back()->with('error', 'Terjadi kesalahan: ');
+        // dd($request);
+        return redirect()->route('tambah.invoice')->with('error', 'Terjadi kesalahan: ');
         DB::beginTransaction();
         try {
-            // Konversi tanggal ke format Y-m-d
-            $tgl_invoice = Carbon::parse($request->tanggal_invoice)->format('Y-m-d');
-            $jt_invoice  = Carbon::parse($request->tanggal_jatuh_tempo)->format('Y-m-d');
-
-            // Decode data siswa dari request
-            $siswaData = collect(json_decode($request->data_siswa, true) ?? []);
-
-            // Generate kode invoice
-            $kdInvoice = $this->generateKodeInvoice();
-
-            // Hitung total tagihan
-            $tagihanList = collect($request->jenis_tagihan)->map(fn($id_tagihan, $index) => [
-                'jumlah'     => (int) $request->tagihan[$index],
-                'deskripsi'  => $request->deskripsi[$index] ?? '',
-                'id_tagihan' => $id_tagihan,
-            ]);
-            
-
-            $totalTagihan = $tagihanList->sum('jumlah');
-            // dd($tagihanList);
-            // ✅ INSERT langsung ke tbl_invoice biar id_invoice bisa langsung dipakai
+            // Simpan data ke tbl_invoice
             $invoice = DataInvoice::create([
                 'kd_invoice'    => $kdInvoice,
                 'nm_invoice'    => $request->nm_invoice,
                 'tgl_invoice'   => $tgl_invoice,
                 'jt_invoice'    => $jt_invoice,
                 'total_invoice' => $totalTagihan,
-                'potongan'      => (int) $request->potongan,
-                'total_bayar'   => $totalTagihan - (int) $request->potongan
+                'potongan'      => $potongan,
+                'total_bayar'   => ($totalTagihan - $potongan)
             ]);
+            // dd($request->all());
+            // Pastikan data tagihan ada
+            if (!empty($request->jenis_tagihan) && !empty($request->tagihan)) {
+                $invoiceDetails = [];
 
-            // ✅ Insert ke tbl_invoice_detail langsung pakai id_invoice yang sudah ada
-            $invoiceDetails = $siswaData->map(fn($siswa) => [
-                'id_invoice' => $invoice->id_invoice, // Langsung pakai ID yang baru dibuat
-                'siswa_nis'  => $siswa['nis'],
-                'tagihan'    => $tagihanList->toJson(), // Simpan dalam JSON
-            ]);
+                foreach ($siswaData as $siswa) {
+                    foreach ($request->jenis_tagihan as $key => $id_tagihan) {
+                        $invoiceDetails[] = [
+                            'id_invoice' => $invoice->id_invoice,
+                            'siswa_nis'  => $siswa['nis'],
+                            'tagihan'    => json_encode([
+                                'jumlah'    => $request->tagihan[$key],
+                                'deskripsi' => $request->deskripsi[$key] ?? '', 
+                                'id_tagihan'=> $id_tagihan,
+                            ]),
+                        ];                        
+                    }
+                }
 
-            InvoiceDetail::insert($invoiceDetails->toArray());
+                if (!empty($invoiceDetails)) {
+                    InvoiceDetail::insert($invoiceDetails); // Bulk insert untuk efisiensi
+                }
+            }
 
             DB::commit();
             return redirect()->route('invoice.siswa')->with('success', 'Invoice berhasil disimpan!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('invoice.siswa')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->route('tambah.invoice')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
-
 
     public function JenisTagihan()
     {

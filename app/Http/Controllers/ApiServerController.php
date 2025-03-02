@@ -56,9 +56,9 @@ class ApiServerController extends Controller
                         : 'https://ui-avatars.com/api/?name=' . urlencode($row->siswa_nama) . '&size=100&background=random';
 
                     return '<div class="flex items-center">
-                                <img src="' . $photo . '" class="w-10 h-10 rounded-full">
+                                <img src="' . $photo . '" class="w-8 h-8 rounded-full">
                                 <div class="ps-3">
-                                    <div class="text-base font-semibold">' . $row->siswa_nama . '</div>
+                                    <div class="text-small font-semibold">' . $row->siswa_nama . '</div>
                                     <div class="font-normal text-gray-500">' . $row->siswa_nis . '</div>
                                 </div>
                             </div>';
